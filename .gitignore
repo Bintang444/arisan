@@ -1,0 +1,24 @@
+# dependencies
+node_modules/
+
+# env
+.env
+.env.local
+.env*.local
+
+# next.js
+.next/
+out/
+
+# typescript
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
