@@ -31,11 +31,36 @@
 
 ## Database Schema
 
-| Table | Keterangan |
-|---|---|
-| `pengaturan_arisan` | Tanggal mulai arisan (1 baris) |
-| `peserta_arisan` | Data peserta & urutan menang |
-| `setoran_mingguan` | Status bayar per peserta per minggu |
+### `pengaturan_arisan` — Pengaturan arisan
+
+| Kolom | Tipe | Keterangan |
+|---|---|---|
+| `id` | `int8` (PK) | Auto increment |
+| `tanggal_mulai` | `date` | Tanggal minggu pertama arisan |
+| `updated_at` | `timestamptz` | Waktu update terakhir |
+
+### `peserta_arisan` — Data peserta
+
+| Kolom | Tipe | Keterangan |
+|---|---|---|
+| `id` | `int8` (PK) | Auto increment |
+| `nama_peserta` | `text` | Nama panggilan |
+| `nama_asli` | `text` | Nama lengkap (nullable) |
+| `nominal_mingguan` | `float8` | Nominal setoran per minggu |
+| `minggu_menang` | `int8` | Urutan minggu menang (nullable) |
+
+### `setoran_mingguan` — Status setoran per minggu
+
+| Kolom | Tipe | Keterangan |
+|---|---|---|
+| `id` | `int8` (PK) | Auto increment |
+| `peserta_id` | `int8` (FK → peserta_arisan.id) | Relasi ke peserta |
+| `minggu_ke` | `int8` | Minggu ke-berapa |
+| `status` | `text` | `LUNAS` / `BELUM_BAYAR` |
+| `jumlah_bayar` | `float8` | Jumlah yang dibayar (nullable) |
+| `tanggal_bayar` | `date` | Tanggal bayar (nullable) |
+
+> **Unique constraint:** `(peserta_id, minggu_ke)` — satu setoran per peserta per minggu.
 
 ## Cara Menjalankan
 
